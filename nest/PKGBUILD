@@ -1,0 +1,28 @@
+# Maintainer: Paulo Castro <p.oliveira.castro@gmail.com>
+pkgname=nest
+pkgver=2.12.0
+pkgrel=1
+pkgdesc="Simulator for spiking neural network models"
+arch=('x86_64')
+url="http://www.nest-simulator.org/"
+license=('GPL')
+depends=('gsl' 'libtool' 'python')
+optdepends=('ipython' 'python-numpy' 'python-scipy' 'python-matplotlib')
+source=("https://github.com/nest/nest-simulator/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=("1ded6489466c6054abc0be230d97c424")
+build() {
+	cd "$pkgname-$pkgver"
+    cmake -DCMAKE_INSTALL_PREFIX:PATH="$pkgdir/usr" .
+    make
+}
+
+package() {
+	cd "$pkgname-$pkgver"
+	make install
+}
+
+check() {
+	cd "$pkgname-$pkgver"
+	#make installcheck
+    #echo "To set necessary environment variables, add the following line to your ~/.bashrc :   source /home/stes/builds/nest/pkg/nest/bin/nest_vars.sh"
+}
